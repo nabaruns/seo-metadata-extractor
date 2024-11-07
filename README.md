@@ -1,1 +1,1 @@
-# seo-chrome-plugin
+# SEO Metadata extractor chrome plugin
