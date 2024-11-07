@@ -46,11 +46,13 @@ function getMetadata() {
       if (results?.[0]?.result) {
         const { title, description, keywords, h1Tags, ogTags, twitterTags } = results[0].result;
         
+        // Update basic elements
         document.getElementById('title').textContent = title;
         document.getElementById('description').textContent = description;
         document.getElementById('keywords').textContent = keywords;
         document.getElementById('h1-tags').textContent = h1Tags.join(', ');
 
+        // Add Open Graph metadata
         const ogContainer = document.createElement('div');
         ogContainer.innerHTML = `
           <p><strong>Open Graph Tags:</strong></p>
@@ -64,6 +66,7 @@ function getMetadata() {
         `;
         document.getElementById('metadata').appendChild(ogContainer);
 
+        // Add Twitter Card metadata
         const twitterContainer = document.createElement('div');
         twitterContainer.innerHTML = `
           <p><strong>Twitter Card Tags:</strong></p>
@@ -77,6 +80,7 @@ function getMetadata() {
         `;
         document.getElementById('metadata').appendChild(twitterContainer);
 
+        // Add hidden elements for copying
         Object.entries(ogTags).forEach(([key, value]) => {
           const element = document.createElement('span');
           element.id = `og-${key}`;
@@ -91,6 +95,13 @@ function getMetadata() {
           element.style.display = 'none';
           element.textContent = value;
           document.body.appendChild(element);
+        });
+
+        // Add event listeners to the newly created buttons
+        document.querySelectorAll('[data-copy]').forEach(button => {
+          button.addEventListener('click', () => {
+            copyToClipboard(button.dataset.copy);
+          });
         });
       }
     });
