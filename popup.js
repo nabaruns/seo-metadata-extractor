@@ -112,9 +112,6 @@ function copyToClipboard(elementId) {
   const text = document.getElementById(elementId).textContent;
   navigator.clipboard
     .writeText(text)
-    .then(() => {
-      alert("Copied to clipboard!");
-    })
     .catch((err) => {
       console.error("Failed to copy text: ", err);
     });
@@ -122,10 +119,4 @@ function copyToClipboard(elementId) {
 
 document.addEventListener("DOMContentLoaded", () => {
   getMetadata();
-  
-  document.querySelectorAll("[data-copy]").forEach(button => {
-    button.addEventListener("click", () => {
-      copyToClipboard(button.dataset.copy);
-    });
-  });
 });
